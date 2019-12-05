@@ -48,9 +48,20 @@ router.get('/api/articles/:article_id', (req, res) => {
 * Deription:   Create a new Article
 */
 
-router.post('/api/articles/', (req, res) => {
-  res.json(req.body)
+router.post('/api/articles', (req, res) => {
+  Article.create(req.body.article)
+  //on a successful `create` action, respond with 201
+  //HTTP status and the content of the new article
+  .then((newArticle)=>{
+    res.status(201).json({article: newArticle});
+  })
+  //catch any error that might accur
+  .catch((error)=>{
+    res.status(500).json({error: error});
+  })
 })
+
+
 
 /**
 * Action:      UPDATE
