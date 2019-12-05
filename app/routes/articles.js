@@ -17,7 +17,7 @@ const router = express.Router();
  * Deription:   Get all Articles
  */
 
-router.get('/api/articls', (req, res) => {
+router.get('/api/articles', (req, res) => {
   Article.find()
     //Return all Article as an array
     .then((article) => {
@@ -50,15 +50,15 @@ router.get('/api/articles/:article_id', (req, res) => {
 
 router.post('/api/articles', (req, res) => {
   Article.create(req.body.article)
-  //on a successful `create` action, respond with 201
-  //HTTP status and the content of the new article
-  .then((newArticle)=>{
-    res.status(201).json({article: newArticle});
-  })
-  //catch any error that might accur
-  .catch((error)=>{
-    res.status(500).json({error: error});
-  })
+    //on a successful `create` action, respond with 201
+    //HTTP status and the content of the new article
+    .then((newArticle) => {
+      res.status(201).json({ article: newArticle });
+    })
+    //catch any error that might accur
+    .catch((error) => {
+      res.status(500).json({ error: error });
+    })
 })
 
 
@@ -84,7 +84,29 @@ router.patch('/api/articles/:article_id', (req, res) => {
 */
 
 router.delete('/api/articles/:article_id', (req, res) => {
-  res.json('delete')
+  Article.findById(req.params.article_id)
+    .then((article) => {
+      if (article) {
+        //Pass the result of Mongoose's `.delete` method to the next `.then`
+        return article.remove()
+      } else {
+        //if we couldn't find a document with matching ID
+        res.status(404).json({
+          error: {
+            name: 'Document not found error',
+            message: 'The provided ID doesn\'t match any document'
+          }
+        })
+      }
+    })
+    .then(() => {
+      //if the deletion succeeded, return 204 and no JSON
+      res.status(204).end();
+    })
+    //catch any error that might accur
+    .catch((error) => {
+      res.status(500).json({ error: error });
+    })
 })
 
 
