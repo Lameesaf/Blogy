@@ -22,6 +22,13 @@ const app = express();
 //Define PORT for the API to run on
 const port = process.env.PORT || 5000;
 
+/***Middleware***/
+
+//add `BodyParser` middleware which will parse JSON requests into
+//JS objects before they reach route files
+//
+//the method `use` sets up middleware for the Express appliction
+app.use(express.json())
 
 /***Routes***/
 
