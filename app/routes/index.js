@@ -1,6 +1,5 @@
 //Require necessary NPM packags
 const express = require('express');
-const mongoose = require('mongoose');
 
 
 //Instantiate a Router (mini app that only handles routes)
