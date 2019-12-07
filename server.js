@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 //Require Route Files
 const indexRoute = require('./app/routes/index');
 const articlsRoute = require('./app/routes/articles');
+const commentsRoute = require('./app/routes/comments');
 
 
 //Require SB configration File
@@ -35,6 +36,7 @@ app.use(express.json())
 //Mount imported Routers
 app.use(indexRoute)
 app.use(articlsRoute)
+app.use(commentsRoute)
 
 
 //start the server to listen for requests on a given port
