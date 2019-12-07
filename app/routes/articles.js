@@ -2,7 +2,7 @@
 const express = require('express');
 
 //Require Mongoose Model for Article
-const Article = require('../models/article')
+const Article = require('../models/article').Article
 
 
 
